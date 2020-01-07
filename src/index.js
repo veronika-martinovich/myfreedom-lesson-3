@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {NumberInput} from './task2.2-phonenumber-input';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<NumberInput />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
