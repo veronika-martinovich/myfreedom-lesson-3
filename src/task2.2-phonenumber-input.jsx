@@ -3,14 +3,14 @@ import React from "react";
 const isValidPhoneNumber = number => {
   let numbers = number.split("");
   if (
-    numbers[0] == "+" &&
-    numbers[1] == 3 &&
-    numbers[2] == 7 &&
-    numbers[3] == 5 &&
+    number.slice(0, 4) == "+375" &&
     ((numbers[4] == 2 && numbers[5] == 5) ||
       (numbers[4] == 2 && numbers[5] == 9) ||
       (numbers[4] == 3 && numbers[5] == 3) ||
       (numbers[4] == 4 && numbers[5] == 4)) &&
+    /* numbers.slice(6).every(n => {
+      isFinite(n)
+    }) */
     isFinite(numbers[6]) &&
     isFinite(numbers[7]) &&
     isFinite(numbers[8]) &&
@@ -19,7 +19,6 @@ const isValidPhoneNumber = number => {
     isFinite(numbers[11]) &&
     isFinite(numbers[12])
   ) {
-    console.log(true);
     return true;
   } 
 };
