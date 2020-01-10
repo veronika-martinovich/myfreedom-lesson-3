@@ -20,12 +20,12 @@ const isValidPhoneNumber = number => {
     isFinite(numbers[12])
   ) {
     return true;
-  } 
+  }
 };
 
 const isValidName = name => {
   if (name.length >= 4) return true;
-}
+};
 
 export class AddClientForm extends React.Component {
   state = {
@@ -41,7 +41,7 @@ export class AddClientForm extends React.Component {
     if (isTouched && !isValid) {
       return { borderColor: "red" };
     } else {
-      return null
+      return null;
     }
   };
 
@@ -66,8 +66,11 @@ export class AddClientForm extends React.Component {
         <input
           type="text"
           name="name"
-          minLength='4'
-          style={this.setStyle(this.state.isTouched.name, isValidName(this.state.name))}
+          minLength="4"
+          style={this.setStyle(
+            this.state.isTouched.name,
+            isValidName(this.state.name)
+          )}
           value={this.state.name}
           onChange={this.onChange}
           onBlur={this.onBlur}
@@ -75,19 +78,29 @@ export class AddClientForm extends React.Component {
         <input
           type="text"
           name="phone"
-          maxLength='13'
-          style={this.setStyle(this.state.isTouched.phone, isValidPhoneNumber(this.state.phone))}
+          maxLength="13"
+          style={this.setStyle(
+            this.state.isTouched.phone,
+            isValidPhoneNumber(this.state.phone)
+          )}
           value={this.state.phone}
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
         <button
           onClick={() => {
-            if (isValidName(this.state.name) && isValidPhoneNumber(this.state.phone)) {
+            if (
+              isValidName(this.state.name) &&
+              isValidPhoneNumber(this.state.phone)
+            ) {
               this.props.onSave(this.state.name, this.state.phone);
               this.setState({
                 name: "",
-                phone: ""
+                phone: "",
+                isTouched: {
+                  name: false,
+                  phone: false
+                }
               });
             }
           }}
