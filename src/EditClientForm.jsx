@@ -1,15 +1,18 @@
 import React from "react";
 import { isValidPhoneNumber, isValidName } from "./validators";
 
-export class AddClientForm extends React.Component {
-  state = {
-    name: "",
-    phone: "",
-    isTouched: {
-      name: false,
-      phone: false
-    }
-  };
+export class EditClientForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: this.props.clientInfo.name,
+      phone: this.props.clientInfo.phone,
+      isTouched: {
+        name: false,
+        phone: false
+      }
+    };
+  }
 
   setStyle = (isTouched, isValid) => {
     if (isTouched && !isValid) {
@@ -79,8 +82,9 @@ export class AddClientForm extends React.Component {
             }
           }}
         >
-          Add
+          Save
         </button>
+        <button onClick={() => this.props.onCancel()}>Cancel</button>
       </form>
     );
   }

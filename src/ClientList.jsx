@@ -1,5 +1,6 @@
 import React from "react";
 import { AddClientForm } from "./AddClientForm";
+import { EditClientForm } from "./EditClientForm";
 
 function addClient(currentClients, clientToAdd) {
   return [...currentClients, clientToAdd];
@@ -15,6 +16,20 @@ function deleteClient(currentClients, clientId) {
   ];
 }
 
+function updateClient(currentClients, clientId, fieldsToUpdate) {
+  const clientIndex = currentClients.findIndex(
+    client => client.id === clientId
+  );
+  const clientToUpdate = currentClients[clientIndex];
+  const updatedClient = { ...clientToUpdate, ...fieldsToUpdate };
+
+  return [
+    ...currentClients.slice(0, clientIndex),
+    updatedClient,
+    ...currentClients.slice(clientIndex + 1)
+  ];
+}
+
 export class ClientList extends React.Component {
   state = {
     clientList: [
@@ -23,11 +38,36 @@ export class ClientList extends React.Component {
         name: "David Lynch",
         phone: "+375444444444"
       }
-    ]
+    ],
+    clientToEdit: null
   };
   nextId = 2;
 
   render() {
+    if (this.state.clientToEdit) {
+      return (
+        <EditClientForm
+          clientInfo={this.state.clientList.find(
+            client => client.id === this.state.clientToEdit
+          )}
+          onSave={(name, phone) => {
+            this.setState({
+              clientList: updateClient(
+                this.state.clientList,
+                this.state.clientToEdit,
+                { name, phone }
+              ),
+              clientToEdit: null
+            });
+          }}
+          onCancel={() => {
+            this.setState({
+              clientToEdit: null
+            });
+          }}
+        />
+      );
+    }
     return (
       <>
         <AddClientForm
@@ -50,6 +90,7 @@ export class ClientList extends React.Component {
               <th>Name</th>
               <th>Phone number</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -61,16 +102,23 @@ export class ClientList extends React.Component {
                 <td>
                   <button
                     onClick={() => {
-                      const copy = deleteClient(
-                        clientList,
-                        client.id
-                      );
                       this.setState({
-                        clientList: copy
-                      })
+                        clientList: deleteClient(clientList, client.id)
+                      });
                     }}
                   >
                     Delete
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        clientToEdit: client.id
+                      });
+                    }}
+                  >
+                    Edit
                   </button>
                 </td>
               </tr>
