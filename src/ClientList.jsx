@@ -40,11 +40,36 @@ export class ClientList extends React.Component {
         purchaseStatus: "No purchases"
       }
     ],
-    clientToEdit: null
+    clientToEdit: null,
+    clientToAdd: null
   };
   nextId = 2;
 
   render() {
+    if (this.state.clientToAdd) {
+      return (
+        <AddClientForm
+          onSave={(name, phone, purchaseStatus = "No purchases") => {
+            const client = {
+              id: this.nextId,
+              name,
+              phone,
+              purchaseStatus
+            };
+            this.nextId++;
+            this.setState({
+              clientList: addClient(this.state.clientList, client),
+              clientToAdd: null
+            });
+          }}
+          onCancel={() => {
+            this.setState({
+              clientToAdd: null
+            });
+          }}
+        />
+      );
+    }
     if (this.state.clientToEdit) {
       return (
         <EditClientForm
@@ -71,20 +96,15 @@ export class ClientList extends React.Component {
     }
     return (
       <>
-        <AddClientForm
-          onSave={(name, phone, purchaseStatus = 'No purchases') => {
-            const client = {
-              id: this.nextId,
-              name,
-              phone,
-              purchaseStatus
-            };
-            this.nextId++;
+        <button
+          onClick={() => {
             this.setState({
-              clientList: addClient(this.state.clientList, client)
+              clientToAdd: this.nextId
             });
           }}
-        />
+        >
+          Add client
+        </button>
         <table>
           <thead>
             <tr>

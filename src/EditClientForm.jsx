@@ -41,8 +41,10 @@ export class EditClientForm extends React.Component {
   render() {
     return (
       <form onSubmit={e => e.preventDefault()}>
+        <label htmlFor="name">Name</label>
         <input
           type="text"
+          id="name"
           name="name"
           minLength="4"
           style={this.setStyle(
@@ -53,8 +55,10 @@ export class EditClientForm extends React.Component {
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
+        <label htmlFor="phone">Phone number</label>
         <input
           type="text"
+          id="phone"
           name="phone"
           maxLength="13"
           style={this.setStyle(
@@ -65,7 +69,13 @@ export class EditClientForm extends React.Component {
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
-        <select name="purchaseStatus" value={this.state.purchaseStatus} onChange={this.onChange}>
+        <label htmlFor="purchaseStatus">Purchase Status</label>
+        <select
+          name="purchaseStatus"
+          id="purchaseStatus"
+          value={this.state.purchaseStatus}
+          onChange={this.onChange}
+        >
           <option value="No purchases">No purchases</option>
           <option value="One purchase">One purchase</option>
           <option value="More purchases">More purchases</option>
@@ -76,7 +86,11 @@ export class EditClientForm extends React.Component {
               isValidName(this.state.name) &&
               isValidPhoneNumber(this.state.phone)
             ) {
-              this.props.onSave(this.state.name, this.state.phone, this.state.purchaseStatus);
+              this.props.onSave(
+                this.state.name,
+                this.state.phone,
+                this.state.purchaseStatus
+              );
               this.setState({
                 name: "",
                 phone: "",
