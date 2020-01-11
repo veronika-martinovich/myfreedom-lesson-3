@@ -61,16 +61,23 @@ export class AddClientForm extends React.Component {
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
+        <select name="purchaseStatus" value={this.state.purchaseStatus} onChange={this.onChange}>
+          <option disabled selected></option>
+          <option value="No purchases">No purchases</option>
+          <option value="One purchase">One purchase</option>
+          <option value="More purchases">More purchases</option>
+        </select>
         <button
           onClick={() => {
             if (
               isValidName(this.state.name) &&
               isValidPhoneNumber(this.state.phone)
             ) {
-              this.props.onSave(this.state.name, this.state.phone);
+              this.props.onSave(this.state.name, this.state.phone, this.state.purchaseStatus);
               this.setState({
                 name: "",
                 phone: "",
+                purchaseStatus: "",
                 isTouched: {
                   name: false,
                   phone: false
