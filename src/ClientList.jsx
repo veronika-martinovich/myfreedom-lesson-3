@@ -1,6 +1,5 @@
 import React from "react";
-import { AddClientForm } from "./AddClientForm";
-import { EditClientForm } from "./EditClientForm";
+import { ClientForm } from "./ClientForm";
 
 function addClient(currentClients, clientToAdd) {
   return [...currentClients, clientToAdd];
@@ -48,7 +47,11 @@ export class ClientList extends React.Component {
   render() {
     if (this.state.clientToAdd) {
       return (
-        <AddClientForm
+        <ClientForm
+          client={{
+            name: "",
+            phone: ""
+          }}
           onSave={(name, phone, purchaseStatus = "No purchases") => {
             const client = {
               id: this.nextId,
@@ -72,8 +75,8 @@ export class ClientList extends React.Component {
     }
     if (this.state.clientToEdit) {
       return (
-        <EditClientForm
-          clientInfo={this.state.clientList.find(
+        <ClientForm
+          client={this.state.clientList.find(
             client => client.id === this.state.clientToEdit
           )}
           onSave={(name, phone, purchaseStatus) => {

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import {NumberInput} from './NumberInput';
 import {ClientList} from './ClientList';
 
 ReactDOM.render(<ClientList />, document.getElementById('root'));

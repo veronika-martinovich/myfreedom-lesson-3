@@ -20,9 +20,10 @@ export const isValidPhoneNumber = number => {
     isFinite(numbers[12])
   ) {
     return true;
-  }
+  } else return false;
 };
 
 export const isValidName = name => {
   if (name.length >= 4) return true;
+  else return false;
 };
